@@ -3,14 +3,16 @@ package com.spring.web.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.spring.web.domain.Member;
 import com.spring.web.repository.MemberRepository;
-import com.spring.web.repository.MemoryMemberRepsitory;
 
 public class MemberService {
 
 	private final MemberRepository memberRepository;
 	
+	@Autowired
 	public MemberService(MemberRepository memberRepository) {
 		this.memberRepository = memberRepository;
 	}
