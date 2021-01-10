@@ -1,23 +1,35 @@
 package com.spring.web.config;
 
+import javax.persistence.EntityManager;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.spring.web.repository.JpaMemberRepository;
 import com.spring.web.repository.MemberRepository;
-import com.spring.web.repository.MemoryMemberRepsitory;
 import com.spring.web.service.MemberService;
 
 @Configuration
 public class Springconfig {
-
 	
+	private final EntityManager em;
+
+	@Autowired
+	public Springconfig(EntityManager em) {
+		this.em = em;
+	}
+
 	@Bean
 	public MemberService memberService() {
 		return new MemberService(memberRepository());
 	}
-	
+
 	@Bean
 	public MemberRepository memberRepository() {
-		return new MemoryMemberRepsitory();
+// return new MemoryMemberRepository();
+// return new JdbcMemberRepository(dataSource);
+// return new JdbcTemplateMemberRepository(dataSource);
+		return new JpaMemberRepository(em);
 	}
 }
